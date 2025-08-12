@@ -1,0 +1,12 @@
+# trash
+.DS_Store
+# k8s
+kubeconfig
+talosconfig
+*.agekey
+*.pub
+*.key
+# taskfile
+.task
+# brew
+Brewfile.lock.json

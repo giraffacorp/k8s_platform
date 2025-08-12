@@ -1,0 +1,17 @@
+---
+repos:
+  # yaml formatting
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.17.2
+    hooks:
+      - id: yamlfmt
+        args:
+          - "-conf=yamlfmt.yaml"
+
+  # secrets
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+        args:
+          - "--config=gitleaks.toml"

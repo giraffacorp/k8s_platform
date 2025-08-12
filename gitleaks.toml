@@ -1,0 +1,4 @@
+[allowlist]
+description = "Ignore SOPS encrypted values"
+regexTarget = "match"
+regexes = ['ENC\[.*?\]']

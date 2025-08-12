@@ -1,0 +1,12 @@
+---
+creation_rules:
+  # kubernetes secrets
+  - path_regex: apps/.+\.sops\.yaml
+    encrypted_regex: ^(data|stringData)$
+    key_groups:
+      - age:
+          - age1haxzj5xhxtpag457wwykd4alk7x0cfdzc0gcfgltlvuh7zfywveqz53gjl # secrets-operator-key
+          - <YOUR-AGE-PUBLIC-KEY-HERE>
+stores:
+  yaml:
+    indent: 2

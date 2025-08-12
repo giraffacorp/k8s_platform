@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+set:
+  - pipefail
+shopt:
+  - globstar
+
+tasks:
+  setup:
+    desc: Set up dev environment
+    cmds:
+      - task: direnv
+      - task: precommit
+      - task: sops-differ
+
+  direnv:
+    desc: Set up direnv hooks
+    cmd: direnv allow .
+    status:
+      - '[[ $(direnv status --json | jq ".state.foundRC.allowed") == 0 ]]'
+      - '[[ $(direnv status --json | jq ".state.loadedRC.allowed") == 0 ]]'
+    preconditions:
+      - which direnv
+
+  sops-differ:
+    desc: git diff sops files
+    status:
+      - git config --local --get diff.sopsdiffer.textconv | grep -q "sops decrypt"
+    cmds:
+      - git config --local diff.sopsdiffer.textconv "sops decrypt"
+    preconditions:
+      - which git
+
+  precommit:
+    desc: Set up pre-commit hooks
+    cmd: uvx pre-commit install
+    generates:
+      - "{{.ROOT_DIR}}/.git/hooks/pre-commit"
+    preconditions:
+      - which uvx
