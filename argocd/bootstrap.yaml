@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  name: platform-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=default"]
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/giraffacorp/k8s_platform.git
+              revision: "HEAD"
+              requeueAfterSeconds: 20
+              files:
+                - path: "apps/**/config.yaml"
+              values:
+                app_path: "{{.path.path}}"
+                name: "{{.path.basename}}"
+                app_name: "{{index .path.segments 1}}"
+          - clusters: {}
+  template:
+    metadata:
+      name: "{{ if .appName }}{{ .appName }}{{ else }}{{ .values.app_name }}{{ end }}"
+      namespace: argocd
+    spec:
+      destination:
+        namespace: "{{ if .destNamespace }}{{ .destNamespace }}{{ else }}{{ .values.app_name }}{{ end }}"
+        server: https://kubernetes.default.svc
+      project: "{{ if .appProject }}{{ .appProject }}{{ else }}default{{ end }}"
+      source:
+        repoURL: https://github.com/giraffacorp/k8s_platform.git
+        targetRevision: "{{ if .srcTargetRevision }}{{ .srcTargetRevision }}{{ else }}HEAD{{ end }}"
+        path: "{{ .values.app_path }}"
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 30
+          backoff:
+            duration: 20s
+            factor: 1
+            maxDuration: 20s
+  templatePatch: |
+    metadata:
+      labels:
+        app.kubernetes.io/name: '{{ if .appName }}{{ .appName }}{{ else }}{{ .values.app_name }}{{ end }}'
+        {{- range $key, $value := .labels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+      annotations:
+        {{- range $key, $value := .annotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+    spec:
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          {{- range .syncOptions }}
+          - {{ . }}
+          {{- end }}
