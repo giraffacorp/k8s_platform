@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "2"
+
+helmCharts:
+  - name: rook-ceph
+    repo: https://charts.rook.io/release
+    releaseName: rook-ceph-operator
+    version: v1.17.7
+    valuesFile: values-operator.yaml
+    namespace: rook-ceph
+
+  - name: rook-ceph-cluster
+    repo: https://charts.rook.io/release
+    releaseName: rook-ceph-cluster
+    version: v1.17.7
+    valuesFile: values-cluster.yaml
+    namespace: rook-ceph
