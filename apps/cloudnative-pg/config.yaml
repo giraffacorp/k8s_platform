@@ -1,0 +1,9 @@
+---
+appName: ""
+appProject: "platform"
+destNamespace: "cnpg-system"
+srcTargetRevision: ""
+syncOptions:
+  - ServerSideApply=true
+labels: {}
+annotations: {}
