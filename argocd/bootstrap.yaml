@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -7,7 +8,8 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=default"]
+  goTemplateOptions:
+    - "missingkey=default"
   generators:
     - matrix:
         generators:
@@ -28,7 +30,8 @@ spec:
       namespace: argocd
     spec:
       destination:
-        namespace: "{{ if .destNamespace }}{{ .destNamespace }}{{ else }}{{ .values.app_name }}{{ end }}"
+        namespace: "{{ if .destNamespace }}{{ .destNamespace }}{{ else }}{{ .values.app_name }}{{ end
+          }}"
         server: https://kubernetes.default.svc
       project: "{{ if .appProject }}{{ .appProject }}{{ else }}default{{ end }}"
       source:
