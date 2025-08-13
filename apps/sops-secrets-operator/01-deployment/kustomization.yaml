@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "2"
+
+helmCharts:
+  - name: sops-secrets-operator
+    repo: https://isindir.github.io/sops-secrets-operator/
+    releaseName: sops-secrets-operator
+    version: 0.22.0
+    valuesFile: values.yaml
+    namespace: sops-operator
