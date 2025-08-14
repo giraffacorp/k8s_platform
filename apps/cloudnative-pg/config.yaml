@@ -2,6 +2,7 @@
 appName: ""
 appProject: "platform"
 destNamespace: "cnpg-system"
+namespaceMetadata: {}
 srcTargetRevision: ""
 syncOptions:
   - ServerSideApply=true

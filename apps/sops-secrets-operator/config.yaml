@@ -2,6 +2,7 @@
 appName: ""
 appProject: "platform"
 destNamespace: "sops-operator"
+namespaceMetadata: {}
 srcTargetRevision: ""
 syncOptions: []
 labels: {}

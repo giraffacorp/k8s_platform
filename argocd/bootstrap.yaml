@@ -11,19 +11,16 @@ spec:
   goTemplateOptions:
     - "missingkey=default"
   generators:
-    - matrix:
-        generators:
-          - git:
-              repoURL: https://github.com/giraffacorp/k8s_platform.git
-              revision: "HEAD"
-              requeueAfterSeconds: 20
-              files:
-                - path: "apps/**/config.yaml"
-              values:
-                app_path: "{{.path.path}}"
-                name: "{{.path.basename}}"
-                app_name: "{{index .path.segments 1}}"
-          - clusters: {}
+    - git:
+        repoURL: https://github.com/giraffacorp/k8s_platform.git
+        revision: "HEAD"
+        requeueAfterSeconds: 20
+        files:
+          - path: "apps/**/config.yaml"
+        values:
+          app_path: "{{.path.path}}"
+          name: "{{.path.basename}}"
+          app_name: "{{index .path.segments 1}}"
   template:
     metadata:
       name: "{{ if .appName }}{{ .appName }}{{ else }}{{ .values.app_name }}{{ end }}"
@@ -62,6 +59,7 @@ spec:
         {{- end }}
     spec:
       syncPolicy:
+        managedNamespaceMetadata: {{ toYaml .namespaceMetadata | nindent 6 }}
         syncOptions:
           - CreateNamespace=true
           {{- range .syncOptions }}
