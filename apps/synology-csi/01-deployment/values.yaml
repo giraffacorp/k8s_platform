@@ -1,0 +1,10 @@
+---
+clientInfoSecret:
+  name: synology-csi-client-credentials
+installCSIDriver: true
+storageClasses:
+  synology:
+    parameters:
+      fsType: ext4
+      location: /volume1
+    reclaimPolicy: Delete
