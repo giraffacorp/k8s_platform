@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway-cloudflare
+spec:
+  addresses:
+    - type: IPAddress
+      value: 10.0.10.0
+  gatewayClassName: cilium
+  listeners:
+    - protocol: HTTPS
+      port: 443
+      name: cloudflare-https
+      allowedRoutes:
+        namespaces:
+          from: All
+    - protocol: HTTP
+      port: 80
+      name: cloudflare
+      allowedRoutes:
+        namespaces:
+          from: All

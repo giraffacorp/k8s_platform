@@ -1,0 +1,9 @@
+---
+appName: ""
+appProject: "platform"
+destNamespace: "kube-system"
+namespaceMetadata: {}
+srcTargetRevision: ""
+syncOptions: []
+labels: {}
+annotations: {}
