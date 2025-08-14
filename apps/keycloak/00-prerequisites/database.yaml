@@ -1,0 +1,53 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: r2-store
+  namespace: auth
+spec:
+  retentionPolicy: "30d"
+  configuration:
+    destinationPath: s3://cnpg
+    endpointURL: https://abdb484b0dfebf44f7d22c6570041c08.r2.cloudflarestorage.com
+    s3Credentials:
+      accessKeyId:
+        name: r2-creds
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: r2-creds
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: gzip
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: keycloak-db
+  namespace: auth
+spec:
+  instances: 3
+  imagePullPolicy: Always
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: r2-store
+  storage:
+    storageClass: ceph-block
+    size: 5Gi
+  monitoring:
+    enablePodMonitor: true
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: keycloak-db-backup
+  namespace: auth
+spec:
+  schedule: "0 0 0 * * 0" # every sunday at 00:00:00
+  backupOwnerReference: self
+  cluster:
+    name: keycloak-db
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io

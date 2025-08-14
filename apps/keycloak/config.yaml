@@ -1,0 +1,9 @@
+---
+appName: ""
+appProject: "platform"
+destNamespace: "auth"
+namespaceMetadata: {}
+srcTargetRevision: ""
+syncOptions: []
+labels: {}
+annotations: {}
