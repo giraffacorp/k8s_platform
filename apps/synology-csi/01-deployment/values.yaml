@@ -5,6 +5,6 @@ installCSIDriver: true
 storageClasses:
   synology:
     parameters:
-      fsType: ext4
+      fsType: btrfs
       location: /volume1
     reclaimPolicy: Delete
