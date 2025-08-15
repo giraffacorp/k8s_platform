@@ -6,10 +6,4 @@ kind: Kustomization
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "2"
 
-helmCharts:
-  - name: cilium
-    repo: https://helm.cilium.io/
-    releaseName: cilium
-    version: 1.18.1
-    valuesFile: values.yaml
-    namespace: kube-system
+helmCharts: []
