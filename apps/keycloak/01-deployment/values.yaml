@@ -3,12 +3,15 @@ command:
   - "/opt/keycloak/bin/kc.sh"
   - "--verbose"
   - "start"
-  - "--hostname-strict=false"
   - "--http-port=8080"
   - "--spi-events-listener-jboss-logging-success-level=info"
   - "--spi-events-listener-jboss-logging-error-level=warn"
 
 extraEnv: |
+  - name: KC_HOSTNAME
+    value: auth.maddin.dev
+  - name: KC_HOSTNAME_ADMIN
+    value: keycloak.maddin.dev
   - name: KC_HTTP_ENABLED
     value: "true"
   - name: KC_PROXY_HEADERS

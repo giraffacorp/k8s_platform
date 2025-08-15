@@ -10,6 +10,7 @@ spec:
       namespace: kube-system
   hostnames:
     - "keycloak.maddin.dev"
+    - "auth.maddin.dev"
   rules:
     - matches:
         - path:
