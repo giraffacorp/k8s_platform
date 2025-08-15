@@ -1,8 +1,8 @@
 ---
 appName: ""
 appProject: "platform"
-destNamespace: "sops-operator"
-namespaceMetadata: {}
+destNamespace: "sops"
+namespaceMetadata: []
 srcTargetRevision: ""
 syncOptions: []
 labels: {}

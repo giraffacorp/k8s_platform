@@ -12,4 +12,4 @@ helmCharts:
     releaseName: sops-secrets-operator
     version: 0.22.0
     valuesFile: values.yaml
-    namespace: sops-operator
+    namespace: sops
