@@ -31,6 +31,9 @@ cgroup:
 k8sServiceHost: localhost
 k8sServicePort: 7445
 
+l2announcements:
+  enabled: true
+
 gatewayAPI:
   enabled: true
   xffNumTrustedHops: 1
