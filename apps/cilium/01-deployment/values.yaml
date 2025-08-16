@@ -17,7 +17,7 @@ securityContext:
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
-      - SETU
+      - SETUID
     cleanCiliumState:
       - NET_ADMIN
       - SYS_ADMIN
