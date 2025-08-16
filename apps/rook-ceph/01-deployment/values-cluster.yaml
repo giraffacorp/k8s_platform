@@ -11,11 +11,15 @@ cephClusterSpec:
       bdev_async_discard_threads: "1"
       osd_class_update_on_start: "false"
       device_failure_prediction_mode: local
-  dashboard:
-    enabled: false
+  cleanupPolicy:
+    wipeDevicesFromOtherClusters: true
+  crashCollector:
+    disable: false
   csi:
     readAffinity:
       enabled: true
+  dashboard:
+    enabled: false
   mgr:
     modules:
       - name: diskprediction_local
@@ -30,12 +34,9 @@ cephClusterSpec:
     provider: host
     connections:
       requireMsgr2: true
-  mon:
-    count: 3
-    allowMultiplePerNode: false
   storage:
     useAllNodes: true
     useAllDevices: false
     devicePathFilter: /dev/disk/by-id/nvme-WD_Red_SN700_2000GB_.*
     config:
-      osdsPerDevice: "2"
+      osdsPerDevice: "1"
