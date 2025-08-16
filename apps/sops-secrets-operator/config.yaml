@@ -2,7 +2,7 @@
 appName: ""
 appProject: "platform"
 destNamespace: "sops"
-namespaceMetadata: []
+namespaceMetadata: {}
 srcTargetRevision: ""
 syncOptions: []
 labels: {}
