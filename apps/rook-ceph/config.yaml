@@ -8,6 +8,7 @@ namespaceMetadata:
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
 srcTargetRevision: ""
-syncOptions: []
+syncOptions:
+  - ServerSideApply=true
 labels: {}
 annotations: {}
