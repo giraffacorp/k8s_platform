@@ -17,7 +17,7 @@ cephClusterSpec:
     disable: false
   csi:
     readAffinity:
-      enabled: true
+      enabled: false
   dashboard:
     enabled: false
   mgr:
