@@ -10,7 +10,7 @@ helmCharts:
   - name: rook-ceph
     repo: https://charts.rook.io/release
     releaseName: rook-ceph-operator
-    version: v1.18.5
+    version: v1.18.6
     valuesFile: values-operator.yaml
     namespace: rook-ceph
 
