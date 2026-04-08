@@ -2,7 +2,7 @@
 repos:
   # yaml formatting
   - repo: https://github.com/google/yamlfmt
-    rev: v0.17.2
+    rev: v0.21.0
     hooks:
       - id: yamlfmt
         args:
@@ -10,7 +10,7 @@ repos:
 
   # secrets
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.28.0
+    rev: v8.30.0
     hooks:
       - id: gitleaks
         args:
